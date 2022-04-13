@@ -6,33 +6,34 @@ import (
 
 	"google.golang.org/grpc"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 )
 
 func main() {
 	fmt.Println("ok")
+	queryState()
+	fmt.Println("ok 2")
 }
 
 func queryState() error {
-	myAddress, err := sdk.AccAddressFromBech32("cosmos1...")
-	if err != nil {
-		return err
-	}
+	// myAddress, err := sdk.AccAddressFromBech32("archway1fs8lczpfms4gp7vy0kcmyrx607gxgz8suel4w6")
+	// if err != nil {
+	// 	return err
+	// }
 
 	// Create a connection to the gRPC server.
 	grpcConn, _ := grpc.Dial(
-		"127.0.0.1:9090",    // your gRPC server address.
-		grpc.WithInsecure(), // The SDK doesn't support any transport security mechanism.
+		"https://rpc.cosmos.network", // your gRPC server address.
+		grpc.WithInsecure(),          // The SDK doesn't support any transport security mechanism.
 	)
 	defer grpcConn.Close()
-
 	// This creates a gRPC client to query the x/bank service.
 	bankClient := banktypes.NewQueryClient(grpcConn)
 	bankRes, err := bankClient.Balance(
 		context.Background(),
-		&banktypes.QueryBalanceRequest{Address: myAddress, Denom: "atom"},
+		&banktypes.QueryBalanceRequest{Address: "cosmos1xyjlrf7fq9fg4jjqgk8f2vx3a4mavfx3g8a5x8"},
 	)
+	fmt.Println(bankRes)
 	if err != nil {
 		return err
 	}
