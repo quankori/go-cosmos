@@ -1,17 +1,17 @@
 package main
 
 import (
-	"context"
 	"fmt"
 
-	"github.com/quankori/go-cosmos/configs"
-	"github.com/quankori/go-cosmos/internal/connect"
+	"github.com/quankori/go-cosmos/pkg/query"
 )
 
 func main() {
 	fmt.Println("hello")
-	config, _ := configs.LoadConfig()
-	var ctx context.Context
-	connect.NewRPCClient(config.RpcURI, ctx)
+	query := query.Query{Client: cl, Options: &options}
+	balance, err := query.Balances(encodedAddr)
+	if err != nil {
+		return err
+	}
 	fmt.Println("exit")
 }
