@@ -1,21 +1,23 @@
 package connect
 
 import (
-	"context"
+	"log"
 
+	"github.com/quankori/go-cosmos/configs"
+	"github.com/tendermint/tendermint/rpc/client/http"
 	rpchttp "github.com/tendermint/tendermint/rpc/client/http"
-	libclient "github.com/tendermint/tendermint/rpc/jsonrpc/client"
 )
 
-func NewRPCClient(addr string, ctx context.Context) (*rpchttp.HTTP, error) {
-	httpClient, err := libclient.DefaultHTTPClient(addr)
+func NewRPCClient() *http.HTTP {
+	config, _ := configs.LoadConfig()
+	client, err := rpchttp.New(config.RpcURI, "/websocket")
 	if err != nil {
-		return nil, err
+		log.Fatal(err)
 	}
-	// httpClient.Timeout = timeout
-	rpcClient, err := rpchttp.NewWithClient(addr, "/websocket", httpClient)
+
+	err = client.Start()
 	if err != nil {
-		return nil, err
+		log.Fatal(err)
 	}
-	return rpcClient, nil
+	return client
 }

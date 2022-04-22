@@ -1,4 +1,5 @@
 # Go Cosmos
+
 Project building structure cosmos
 
 ## Install package
@@ -6,3 +7,6 @@ Project building structure cosmos
 ```
 go mod download
 ```
+
+## Setup chain
+
