@@ -8,5 +8,19 @@ Project building structure cosmos
 go mod download
 ```
 
-## Setup chain
+## Setup local node
+
+- Initialize the validator node
+
+```
+mkdir -p node-main
+archwayd init node-main --chain-id my-chain --home ./node-main
+```
+
+- Create a key to hold your account.
+
+```
+archwayd keys add node-main-account
+```
+
 

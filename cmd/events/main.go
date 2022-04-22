@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	query.SubscribeBlock()
+	query.SubscribeEvent()
 }

@@ -14,10 +14,5 @@ func NewRPCClient() *http.HTTP {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	err = client.Start()
-	if err != nil {
-		log.Fatal(err)
-	}
 	return client
 }
