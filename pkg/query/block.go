@@ -8,11 +8,12 @@ import (
 	"time"
 
 	"github.com/quankori/go-cosmos/internal/connect"
+	"github.com/tendermint/tendermint/rpc/coretypes"
 	"github.com/tendermint/tendermint/types"
 )
 
 func SubscribeBlock() {
-	client := connect.NewRPCClient()
+	client := connect.NewRPCSocket()
 	err := client.Start()
 	if err != nil {
 		log.Fatal(err)
@@ -33,4 +34,13 @@ func SubscribeBlock() {
 			break
 		}
 	}
+}
+
+func BlockResults() (*coretypes.ResultBlockResults, error) {
+	client := connect.NewRPCClient()
+	var n int64 = 905719
+	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
+	defer cancel()
+	res, err := client.BlockResults(ctx, &n)
+	return res, err
 }

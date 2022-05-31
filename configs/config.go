@@ -3,7 +3,8 @@ package configs
 import "github.com/spf13/viper"
 
 type Config struct {
-	RpcURI string `mapstructure:"RPC_URI"`
+	RpcURI        string `mapstructure:"RPC_URI"`
+	TendermintURI string `mapstructure:"TENDERMINT_URI"`
 }
 
 func LoadConfig() (config Config, err error) {
